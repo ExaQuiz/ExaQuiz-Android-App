@@ -4,6 +4,8 @@ workflows:
     max_build_duration: 60
     environment: {}
     scripts:
+      - name: Make gradlew executable
+        script: chmod +x ./gradlew
       - name: Clean project
         script: ./gradlew clean
       - name: Build Debug APK
