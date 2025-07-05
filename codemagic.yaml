@@ -8,10 +8,10 @@ workflows:
         script: |
           npm install --legacy-peer-deps
       - name: Make gradlew executable
-        script: chmod +x android/gradlew
+        script: chmod +x ./gradlew
       - name: Build APK
         script: |
           cd android
-          ./gradlew assembleRelease
+          ../gradlew assembleRelease
     artifacts:
       - android/app/build/outputs/**/*.apk
