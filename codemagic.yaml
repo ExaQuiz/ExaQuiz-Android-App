@@ -5,13 +5,12 @@ workflows:
       node: 16.20.0
     scripts:
       - name: Install dependencies
-        script: |
-          npm install --legacy-peer-deps
+        script: npm install --legacy-peer-deps
       - name: Make gradlew executable
         script: chmod +x ./gradlew
       - name: Build APK
         script: |
           cd android
-          ../gradlew assembleRelease
+          ./gradlew assembleRelease
     artifacts:
       - android/app/build/outputs/**/*.apk
