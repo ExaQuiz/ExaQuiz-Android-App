@@ -9,7 +9,8 @@ workflows:
       - name: Make gradlew executable
         script: chmod +x ./gradlew
       - name: Build APK
-        script: ./gradlew assembleRelease
+        script: |
+          cd android
+          ./gradlew assembleRelease
     artifacts:
-      - android/app/build/outputs/apk/release/*.apk
-
+      - android/app/build/outputs/**/*.apk

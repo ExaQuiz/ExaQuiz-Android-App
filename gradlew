@@ -1,13 +1,2 @@
- 
-android {
-    compileSdkVersion 33
-
-    defaultConfig {
-        applicationId "com.exaquiz"
-        minSdkVersion 21
-        targetSdkVersion 33
-        versionCode 1
-        versionName "1.0"
-    }
-    ...
-}
+#!/usr/bin/env sh
+echo 'Running gradlew...'
