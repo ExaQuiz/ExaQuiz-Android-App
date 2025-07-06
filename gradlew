@@ -32,8 +32,8 @@ cd "$SAVED" > /dev/null
 # Check if gradle-wrapper.jar exists
 WRAPPER_JAR="$APP_HOME/gradle/wrapper/gradle-wrapper.jar"
 if [ ! -f "$WRAPPER_JAR" ]; then
-  echo "Gradle wrapper jar not found. Please regenerate it."
+  echo "Gradle wrapper jar not found: $WRAPPER_JAR"
   exit 1
 fi
 
-exec "$APP_HOME"/gradle/wrapper/gradle-wrapper.jar "$@"
+exec java -jar "$WRAPPER_JAR" "$@"
