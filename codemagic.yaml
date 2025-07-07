@@ -1,4 +1,4 @@
-workflows:
+ workflows:
   react-native-android:
     name: React Native Android Build
     environment:
@@ -12,5 +12,6 @@ workflows:
         script: ./gradlew assembleRelease
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
+
 
 
