@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-chmod +x ./gradlew
-./gradlew wrapper
-git update-index --chmod=+x gradlew
-git commit -m "fix: made gradlew executable for codemagic"
-git push
