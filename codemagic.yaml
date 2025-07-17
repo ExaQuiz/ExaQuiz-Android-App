@@ -1,4 +1,4 @@
- workflows:
+workflows:
   react-native-android:
     name: React Native Android Build
     environment:
@@ -7,11 +7,8 @@
       - name: Install dependencies
         script: npm install --legacy-peer-deps
       - name: Make gradlew executable
-        script: chmod +x ./gradlew
+        script: chmod +x android/gradlew
       - name: Build APK
-        script: ./gradlew assembleRelease
+        script: cd android && ./gradlew assembleRelease
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
-
-
-
