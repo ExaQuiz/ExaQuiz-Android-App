@@ -8,6 +8,8 @@ workflows:
     scripts:
       - name: Install dependencies
         script: npm install --legacy-peer-deps
+      - name: Convert gradlew to LF
+        script: dos2unix Android/ExaQuiz_Android_Codemagic_Ready/gradlew
       - name: Make gradlew executable
         script: chmod +x Android/ExaQuiz_Android_Codemagic_Ready/gradlew
       - name: Build APK
