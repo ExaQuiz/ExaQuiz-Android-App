@@ -3,7 +3,16 @@ workflows:
     name: React Native Android Build
     environment:
       node: 16.20.0
-      android_signing: Roshan Gani  # ✅ Fixed here
+      android_signing:
+        - name: Roshan Gani              # ✅ Exactly this name in Codemagic UI
+          keystore: exaquiz.keystore     # ✅ Uploaded filename in Codemagic UI
+          keystore_password: exaLION12#$++9*
+          key_alias: exaquiz
+          key_password: exaLION12#$++9*
+          type: JKS
+          group: debug
+          filePath: /tmp/keystores/exaquiz.keystore
+          source: file
     working_directory: Android/ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install dependencies
