@@ -1,22 +1,4 @@
-workflows:
-  react-native-android:
-    name: React Native Android Build
-    environment:
-      node: 16.20.0
-      android_signing: "Roshan Gani"  # ✅ Keystore reference (already uploaded)
-    working_directory: Android/ExaQuiz_Android_Codemagic_Ready
-    scripts:
-      - name: Install dependencies
-        script: |
-          npm install --legacy-peer-deps
-
-      - name: Make gradlew executable
-        script: |
-          chmod +x ./gradlew
-
-      - name: Build APK
-        script: |
-          ./gradlew assembleRelease
-
-    artifacts:
-      - app/build/outputs/apk/release/*.apk
+environment:
+  node: 16.20.0
+  android_signing:
+    - "Roshan Gani"  # ✅ Keystore name as a list
