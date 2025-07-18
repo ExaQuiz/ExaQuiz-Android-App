@@ -1,3 +1,20 @@
-#!/usr/bin/env sh
-chmod +x ./gradlew
-./gradlew wrapper
+workflows:
+  react-native-android:
+    name: React Native Android Build
+    environment:
+      node: 16.20.0
+    scripts:
+      - name: Install dependencies
+        script: |
+          cd Android/ExaQuiz_Android_Codemagic_Ready
+          npm install --legacy-peer-deps
+      - name: Make gradlew executable
+        script: |
+          cd Android/ExaQuiz_Android_Codemagic_Ready
+          chmod +x ./gradlew
+      - name: Build APK
+        script: |
+          cd Android/ExaQuiz_Android_Codemagic_Ready
+          ./gradlew assembleRelease
+    artifacts:
+      - Android/ExaQuiz_Android_Codemagic_Ready/app/build/outputs/apk/release/*.apk
