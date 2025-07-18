@@ -1,19 +1,26 @@
 workflows:
-  android-app:
-    name: ExaQuiz Build
-    max_build_duration: 15
+  exaquiz-android-build:
+    name: ExaQuiz Android Build
+    max_build_duration: 30
     environment:
       vars:
-        PACKAGE_NAME: "com.exaquiz.app"
+        PACKAGE_NAME: "com.exaquiz.android"
+        KEYSTORE_PASSWORD: EncryptedKeystorePassword
+        KEY_ALIAS: exaquiz_key
+        KEY_PASSWORD: EncryptedKeyPassword
       android_signing:
-        - exaquiz_keystore
-      java: 17
+        keystore_reference: exaquiz_keystore
     scripts:
-      - name: Set executable permission for gradlew
+      - name: Make gradlew executable
         script: |
-          chmod +x ./gradlew
-      - name: Build release APK
+          chmod +x android/gradlew
+      - name: Build APK
         script: |
+          cd android
           ./gradlew assembleRelease
     artifacts:
-      - build/app/outputs/**/*.apk
+      - android/app/build/outputs/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - your_email@example.com
