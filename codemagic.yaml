@@ -5,6 +5,9 @@ workflows:
       node: 16.20.0
       android_signing:
         - keystore: Roshan Gani
+          keystore_password: "exaLION12#$++9*"
+          key_alias: "1"
+          key_password: "exaLION12#$++9*"
     working_directory: Android/ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install dependencies
