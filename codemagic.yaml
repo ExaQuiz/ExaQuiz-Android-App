@@ -1,20 +1,19 @@
 workflows:
-  react-native-android:
-    name: React Native Android Build
+  android-app:
+    name: ExaQuiz Build
+    max_build_duration: 15
     environment:
-      node: 16.20.0
+      vars:
+        PACKAGE_NAME: "com.exaquiz.app"
+      android_signing:
+        - exaquiz_keystore
+      java: 17
     scripts:
-      - name: Install dependencies
+      - name: Set executable permission for gradlew
         script: |
-          cd Android/ExaQuiz_Android_Codemagic_Ready
-          npm install --legacy-peer-deps
-      - name: Make gradlew executable
+          chmod +x ./gradlew
+      - name: Build release APK
         script: |
-          cd Android/ExaQuiz_Android_Codemagic_Ready
-          chmod +x gradlew
-      - name: Build APK
-        script: |
-          cd Android/ExaQuiz_Android_Codemagic_Ready
           ./gradlew assembleRelease
     artifacts:
-      - Android/ExaQuiz_Android_Codemagic_Ready/app/build/outputs/apk/release/*.apk
+      - build/app/outputs/**/*.apk
