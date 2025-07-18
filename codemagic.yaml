@@ -9,7 +9,7 @@ workflows:
         KEY_ALIAS: exaquiz_key
         KEY_PASSWORD: EncryptedKeyPassword
       android_signing:
-        keystore_reference: exaquiz_keystore
+        - keystore_reference: exaquiz_keystore
     scripts:
       - name: Make gradlew executable
         script: |
