@@ -5,10 +5,16 @@ workflows:
       node: 16.20.0
     scripts:
       - name: Install dependencies
-        script: npm install --legacy-peer-deps
+        script: |
+          cd Android/ExaQuiz_Android_Codemagic_Ready
+          npm install --legacy-peer-deps
       - name: Make gradlew executable
-        script: chmod +x android/gradlew
+        script: |
+          cd Android/ExaQuiz_Android_Codemagic_Ready
+          chmod +x gradlew
       - name: Build APK
-        script: cd android && ./gradlew assembleRelease
+        script: |
+          cd Android/ExaQuiz_Android_Codemagic_Ready
+          ./gradlew assembleRelease
     artifacts:
-      - android/app/build/outputs/apk/release/*.apk
+      - Android/ExaQuiz_Android_Codemagic_Ready/app/build/outputs/apk/release/*.apk
