@@ -4,7 +4,7 @@ workflows:
     environment:
       node: 16.20.0
       android_signing:
-        - keystore: exaquiz-keystore
+        - keystore: Roshan Gani
     scripts:
       - name: Install dependencies
         script: npm install --legacy-peer-deps
