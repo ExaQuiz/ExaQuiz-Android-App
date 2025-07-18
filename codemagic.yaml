@@ -14,4 +14,4 @@ workflows:
       - name: Build APK
         script: ./gradlew assembleRelease
     artifacts:
-      - Android/ExaQuiz_Android_Codemagic_Ready/app/build/outputs/apk/release/*.apk
+      - app/build/outputs/apk/release/*.apk
