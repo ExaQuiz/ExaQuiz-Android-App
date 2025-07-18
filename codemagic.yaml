@@ -4,7 +4,7 @@ workflows:
     environment:
       node: 16.20.0
       android_signing:
-        - "Roshan Gani"  # ✅ Keystore reference name set in Codemagic UI
+        - "Roshan Gani"
     working_directory: Android/ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install dependencies
