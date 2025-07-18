@@ -3,8 +3,7 @@ workflows:
     name: React Native Android Build
     environment:
       node: 16.20.0
-      android_signing:
-        - Roshan Gani  # ✅ Keystore name
+      android_signing: Roshan Gani  # ✅ Fixed here
     working_directory: Android/ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install dependencies
