@@ -5,14 +5,13 @@ workflows:
       node: 16.20.0
       android_signing:
         - keystore: Roshan Gani
+    working_directory: Android/ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install dependencies
         script: npm install --legacy-peer-deps
-      - name: Convert gradlew to LF
-        script: dos2unix Android/ExaQuiz_Android_Codemagic_Ready/gradlew
       - name: Make gradlew executable
-        script: chmod +x Android/ExaQuiz_Android_Codemagic_Ready/gradlew
+        script: chmod +x ./gradlew
       - name: Build APK
-        script: cd Android/ExaQuiz_Android_Codemagic_Ready && ./gradlew assembleRelease
+        script: ./gradlew assembleRelease
     artifacts:
       - Android/ExaQuiz_Android_Codemagic_Ready/app/build/outputs/apk/release/*.apk
