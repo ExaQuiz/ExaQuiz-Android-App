@@ -1,0 +1,18 @@
+format_version: '11'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: react-native
+
+workflows:
+  primary:
+    steps:
+      - activate-ssh-key: {}
+      - git-clone: {}
+      - npm-install:
+          inputs:
+            - command: install --legacy-peer-deps
+      - install-missing-android-tools: {}
+      - gradle-runner:
+          inputs:
+            - gradle_task: assembleRelease
+            - gradle_file: android/app/build.gradle
+      - deploy-to-bitrise-io: {}
