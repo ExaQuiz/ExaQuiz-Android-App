@@ -21,5 +21,6 @@ workflows:
       
       - deploy-to-bitrise-io@2:
           inputs:
-            - deploy_path: "./ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/app-release.apk"
+            - deploy_path: "ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/app-release.apk"
             - notify_user_groups: everyone
+ls -R app/build/outputs/apk/release/
