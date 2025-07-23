@@ -16,10 +16,11 @@ workflows:
             - content: |
                 #!/bin/bash
                 set -ex
-                cd android
+                cd ExaQuiz_Android_Codemagic_Ready/android
                 ./gradlew assembleRelease
+                ls -R app/build/outputs/apk/release/
 
       - deploy-to-bitrise-io@2:
           inputs:
-            - deploy_path: "android/app/build/outputs/apk/release/app-release.apk"
+            - deploy_path: "ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/app-release.apk"
             - notify_user_groups: everyone
