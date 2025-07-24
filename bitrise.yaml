@@ -18,10 +18,15 @@ workflows:
                 set -ex
                 cd android
                 ./gradlew assembleRelease
-                echo "Checking if APK is created"
-                ls -lh app/build/outputs/apk/release/
+
+      - script@1:
+          title: Show generated files
+          inputs:
+            - content: |
+                ls -R android/app/build/outputs/apk/release/
 
       - deploy-to-bitrise-io@2:
           inputs:
-            - deploy_path: "android/app/build/outputs/apk/release/app-release.apk"
+            - deploy_path: android/app/build/outputs/apk/release/app-release.apk
+            - is_compress: false
             - notify_user_groups: everyone
