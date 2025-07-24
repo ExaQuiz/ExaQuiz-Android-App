@@ -16,16 +16,13 @@ workflows:
             - content: |
                 #!/bin/bash
                 set -ex
-                cd ExaQuiz_Android_Codemagic_Ready/android
-                chmod +x ./gradlew
+                cd android
                 ./gradlew assembleRelease
+                echo "✅ APK build command completed"
                 ls -lah app/build/outputs/apk/release/
+                find . -name "app-release.apk"
 
-      - script@2:
-          title: Move APK to Deploy Folder
+      - deploy-to-bitrise-io@2:
           inputs:
-            - content: |
-                mkdir -p $BITRISE_DEPLOY_DIR
-                cp ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/app-release.apk $BITRISE_DEPLOY_DIR
-
-      - deploy-to-bitrise-io@2: {}
+            - deploy_path: "android/app/build/outputs/apk/release/app-release.apk"
+            - notify_user_groups: everyone
