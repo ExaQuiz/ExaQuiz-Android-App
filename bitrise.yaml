@@ -11,16 +11,15 @@ workflows:
       - install-missing-android-tools@3: {}
 
       - script@1:
-          title: Build Release APK
+          title: Set Gradlew Executable & Build APK
           inputs:
             - content: |
                 #!/bin/bash
                 set -ex
                 cd android
+                chmod +x ./gradlew
                 ./gradlew assembleRelease
-                echo "✅ APK build command completed"
-                ls -lah app/build/outputs/apk/release/
-                find . -name "app-release.apk"
+                ls -R app/build/outputs/apk/release/
 
       - deploy-to-bitrise-io@2:
           inputs:
