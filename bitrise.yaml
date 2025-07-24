@@ -1,32 +1,40 @@
 format_version: '11'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
-
 project_type: android
 
 workflows:
   deploy:
     steps:
       - git-clone@8: {}
-
       - install-missing-android-tools@3: {}
 
       - script@1:
+          title: Check Directory at Start
+          inputs:
+            - content: |
+                # Print root files
+                echo "=== Root directory listing ==="
+                ls -R .
+
+      - script@2:
           title: Build Release APK
           inputs:
             - content: |
                 #!/bin/bash
                 set -ex
+                echo "=== Running gradlew assembleRelease ==="
                 cd android
                 ./gradlew assembleRelease
 
-      - script@2:
-          title: Show generated files
+      - script@3:
+          title: Show APK Output
           inputs:
             - content: |
-                ls -R android/app/build/outputs/apk/release/
+                echo "=== Listing release output directory ==="
+                ls -R android/app/build/outputs/apk
 
       - deploy-to-bitrise-io@2:
           inputs:
-            - deploy_path: android/app/build/outputs/apk/release/app-release.apk
+            - deploy_path: "android/app/build/outputs/apk/release/app-release.apk"
             - is_compress: false
             - notify_user_groups: everyone
