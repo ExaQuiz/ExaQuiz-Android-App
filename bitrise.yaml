@@ -11,17 +11,17 @@ workflows:
       - install-missing-android-tools@3: {}
 
       - script@1:
-          title: Build APK
+          title: Build Release APK
           inputs:
             - content: |
                 #!/bin/bash
                 set -ex
-                cd android
-                ./gradlew clean
+                cd ExaQuiz_Android_Codemagic_Ready/android
+                chmod +x ./gradlew
                 ./gradlew assembleRelease
-                ls -lh app/build/outputs/apk/release/
+                ls -R app/build/outputs/apk/release/
 
       - deploy-to-bitrise-io@2:
           inputs:
-            - deploy_path: "android/app/build/outputs/apk/release/app-release.apk"
+            - deploy_path: "ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/app-release.apk"
             - notify_user_groups: everyone
