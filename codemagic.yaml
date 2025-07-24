@@ -4,8 +4,8 @@ workflows:
     environment:
       node: 16.20.0
       android_signing:
-        - Roshan Gani
-    working_directory: ExaQuiz_Android_Codemagic_Ready
+        - Roshan Gani  # 👈 Replace with your actual key alias name (if using signing)
+    working_directory: ExaQuiz_Android_Codemagic_Ready/android
     scripts:
       - name: Install dependencies
         script: |
@@ -13,12 +13,11 @@ workflows:
 
       - name: Make gradlew executable
         script: |
-          chmod +x android/gradlew  # <-- FIXED PATH
+          chmod +x gradlew
 
       - name: Build APK
         script: |
-          cd android
-          ./gradlew assembleRelease --no-daemon
+          ./gradlew assembleRelease
 
     artifacts:
-      - android/app/build/outputs/apk/release/*.apk
+      - app/build/outputs/apk/release/*.apk
