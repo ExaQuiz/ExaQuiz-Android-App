@@ -19,7 +19,7 @@ workflows:
                 cd android
                 ./gradlew assembleRelease
 
-      - script@1:
+      - script@2:
           title: Show generated files
           inputs:
             - content: |
