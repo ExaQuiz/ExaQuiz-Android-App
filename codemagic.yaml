@@ -13,7 +13,7 @@ workflows:
 
       - name: Make gradlew executable
         script: |
-          chmod +x android/gradlew
+          chmod +x android/gradlew  # <-- FIXED PATH
 
       - name: Build APK
         script: |
