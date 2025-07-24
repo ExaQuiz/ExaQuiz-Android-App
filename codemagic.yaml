@@ -4,11 +4,12 @@ workflows:
     environment:
       node: 16.20.0
       android_signing:
-        - Roshan Gani  # ✅ Reference name of the uploaded keystore in Codemagic UI
-    working_directory: ExaQuiz_Android_Codemagic_Ready
+        - Roshan Gani  # <- Keystore ka reference name (Codemagic UI se)
+    working_directory: ExaQuiz_Android_Codemagic_Ready/android
     scripts:
       - name: Install dependencies
         script: |
+          cd ..
           npm install --legacy-peer-deps
 
       - name: Make gradlew executable
@@ -17,7 +18,7 @@ workflows:
 
       - name: Build APK
         script: |
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease --no-daemon
 
     artifacts:
       - app/build/outputs/apk/release/*.apk
