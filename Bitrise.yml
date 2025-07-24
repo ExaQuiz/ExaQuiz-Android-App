@@ -7,7 +7,9 @@ workflows:
   deploy:
     steps:
       - git-clone@8: {}
+
       - install-missing-android-tools@3: {}
+
       - script@1:
           title: Build Release APK
           inputs:
@@ -17,6 +19,7 @@ workflows:
                 cd android
                 ./gradlew assembleRelease
                 ls -R app/build/outputs/apk/release/
+
       - deploy-to-bitrise-io@2:
           inputs:
             - deploy_path: "android/app/build/outputs/apk/release/app-release.apk"
