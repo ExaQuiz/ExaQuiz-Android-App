@@ -19,9 +19,13 @@ workflows:
                 cd ExaQuiz_Android_Codemagic_Ready/android
                 chmod +x ./gradlew
                 ./gradlew assembleRelease
-                ls -R app/build/outputs/apk/release/
+                ls -lah app/build/outputs/apk/release/
 
-      - deploy-to-bitrise-io@2:
+      - script@2:
+          title: Move APK to Deploy Folder
           inputs:
-            - deploy_path: "ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/app-release.apk"
-            - notify_user_groups: everyone
+            - content: |
+                mkdir -p $BITRISE_DEPLOY_DIR
+                cp ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/app-release.apk $BITRISE_DEPLOY_DIR
+
+      - deploy-to-bitrise-io@2: {}
