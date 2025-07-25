@@ -3,19 +3,27 @@ workflows:
     name: React Native Android Build
     environment:
       node: 16.20.0
+      android_signing:
+        - Roshan Gani  # 👈 If you added signing credentials in Codemagic
+      groups:
+        - default  # 👈 Includes GITHUB_TOKEN if set here
     working_directory: ExaQuiz_Android_Codemagic_Ready
     scripts:
+      - name: Set GitHub token
+        script: |
+          git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf https://github.com/
+
       - name: Install dependencies
         script: |
           npm install --legacy-peer-deps
 
       - name: Make gradlew executable
         script: |
-          ls -l gradlew
-          chmod +x gradlew
+          chmod +x android/gradlew
 
       - name: Build APK
         script: |
+          cd android
           ./gradlew assembleRelease
 
     artifacts:
