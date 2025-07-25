@@ -4,7 +4,7 @@ workflows:
     environment:
       node: 16.20.0
       android_signing:
-        - Roshan Gani  # ✅ Replace with your keystore reference name
+        - Roshan Gani
     working_directory: ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install dependencies
@@ -14,6 +14,7 @@ workflows:
       - name: Make gradlew executable
         script: |
           chmod +x gradlew
+          ls -la gradlew
 
       - name: Build APK
         script: |
