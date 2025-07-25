@@ -3,10 +3,10 @@ workflows:
     name: React Native Android Build
     environment:
       groups:
-        - github_access   # ✅ Tumhara saved group jisme GITHUB_TOKEN hai
+        - github_access   # ✅ This loads GITHUB_TOKEN for authentication
       node: 16.20.0
       android_signing:
-        - Roshan Gani  # ✅ If you're using signing
+        - Roshan Gani
     working_directory: ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install dependencies
@@ -15,7 +15,7 @@ workflows:
 
       - name: Make gradlew executable
         script: |
-          chmod +x ./gradlew
+          chmod +x gradlew
 
       - name: Build APK
         script: |
