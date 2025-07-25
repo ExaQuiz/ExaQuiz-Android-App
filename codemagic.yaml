@@ -3,6 +3,8 @@ workflows:
     name: React Native Android Build
     environment:
       node: 16.20.0
+      groups:
+        - github_access
     working_directory: ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install dependencies
