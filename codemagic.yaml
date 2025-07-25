@@ -3,7 +3,7 @@ workflows:
     name: React Native Android Build
     environment:
       groups:
-        - github_access       # 👈 Yeh group connect karta hai tumhara GITHUB_TOKEN
+        - github_access
       node: 16.20.0
       android_signing:
         - Roshan Gani
