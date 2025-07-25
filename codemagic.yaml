@@ -10,15 +10,11 @@ workflows:
       - name: Make gradlew executable
         script: |
           chmod +x ./gradlew
-
-      - name: Check files (debugging)
-        script: |
           ls -al
-          ls -al ./app
 
       - name: Build APK
         script: |
-          ./gradlew assembleRelease
+          ./gradlew --no-daemon assembleRelease
 
     artifacts:
       - app/build/outputs/apk/release/*.apk
