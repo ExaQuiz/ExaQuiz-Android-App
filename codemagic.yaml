@@ -2,8 +2,6 @@ workflows:
   react-native-android:
     name: React Native Android Build
     environment:
-      groups:
-        - github_access
       node: 16.20.0
       android_signing:
         - Roshan Gani
