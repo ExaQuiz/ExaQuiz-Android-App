@@ -3,7 +3,7 @@ workflows:
     name: React Native Android Build
     environment:
       groups:
-        - github-token   # 👈 yahi likhna hai agar group ka naam "github-token" hai
+        - github-token
       node: 16.20.0
     working_directory: ExaQuiz_Android_Codemagic_Ready
     scripts:
@@ -14,10 +14,11 @@ workflows:
       - name: Make gradlew executable
         script: |
           chmod +x ./gradlew
+          ls -la ./gradlew  # confirm it's there
 
       - name: Build APK
         script: |
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease --stacktrace --info
 
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
