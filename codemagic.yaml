@@ -5,14 +5,18 @@ workflows:
       node: 16.20.0
     working_directory: ExaQuiz_Android_Codemagic_Ready/android
     scripts:
+      - name: Install dependencies
+        script: |
+          npm install --legacy-peer-deps
+
       - name: Make gradlew executable
         script: |
+          ls -l gradlew
           chmod +x gradlew
-          ls -al gradlew
 
       - name: Build APK
         script: |
-          ./gradlew --no-daemon assembleRelease
+          ./gradlew assembleRelease
 
     artifacts:
       - app/build/outputs/apk/release/*.apk
