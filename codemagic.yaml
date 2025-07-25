@@ -5,9 +5,9 @@ workflows:
     environment:
       node: 16.20.0
       groups:
-        - github_access  # ✅ Make sure this group contains GITHUB_TOKEN
+        - github_access   # 👈 This is your group name
       android_signing:
-        - Roshan Gani     # ✅ Reference name of the uploaded keystore
+        - Roshan Gani     # ✅ Your keystore reference (optional if unsigned)
     working_directory: ExaQuiz_Android_Codemagic_Ready
 
     scripts:
@@ -18,6 +18,10 @@ workflows:
       - name: Make gradlew executable
         script: |
           chmod +x ./gradlew
+
+      - name: Set GitHub access token
+        script: |
+          git config --global url."https://$github-token@github.com/".insteadOf "https://github.com/"
 
       - name: Build APK
         script: |
