@@ -2,11 +2,11 @@ workflows:
   react-native-android:
     name: React Native Android Build
     environment:
-      node: 16.20.0
       groups:
-        - github_access
+        - github_access   # ✅ Tumhara saved group jisme GITHUB_TOKEN hai
+      node: 16.20.0
       android_signing:
-        - Roshan Gani
+        - Roshan Gani  # ✅ If you're using signing
     working_directory: ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install dependencies
