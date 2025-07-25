@@ -21,3 +21,4 @@ workflows:
 
     artifacts:
       - app/build/outputs/apk/release/*.apk
+
