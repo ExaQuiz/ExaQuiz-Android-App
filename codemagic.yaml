@@ -3,14 +3,12 @@ workflows:
     name: React Native Android Build
     environment:
       node: 16.20.0
-      android_signing:
-        - Roshan Gani
     working_directory: ExaQuiz_Android_Codemagic_Ready/android
     scripts:
       - name: Make gradlew executable
         script: |
-          chmod +x ./gradlew
-          ls -al
+          chmod +x gradlew
+          ls -al gradlew
 
       - name: Build APK
         script: |
