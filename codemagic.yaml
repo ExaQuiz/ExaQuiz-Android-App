@@ -1,15 +1,11 @@
 workflows:
   react-native-android:
     name: React Native Android Build
-
     environment:
-      node: 16.20.0
       groups:
-        - github_access   # 👈 This is your group name
-      android_signing:
-        - Roshan Gani     # ✅ Your keystore reference (optional if unsigned)
+        - github-token   # 👈 yahi likhna hai agar group ka naam "github-token" hai
+      node: 16.20.0
     working_directory: ExaQuiz_Android_Codemagic_Ready
-
     scripts:
       - name: Install dependencies
         script: |
@@ -18,10 +14,6 @@ workflows:
       - name: Make gradlew executable
         script: |
           chmod +x ./gradlew
-
-      - name: Set GitHub access token
-        script: |
-          git config --global url."https://$github-token@github.com/".insteadOf "https://github.com/"
 
       - name: Build APK
         script: |
