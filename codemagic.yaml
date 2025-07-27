@@ -18,16 +18,12 @@ workflows:
     working_directory: ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready
     
     scripts:
-      # 'Clean npm cache' स्टेप को हटा दिया गया है
-          
       - name: Install Node dependencies
         script: |
-          npm install --legacy-peer-deps
+          npm install --legacy-peer-deps --loglevel verbose # यहाँ बदलाव किया गया है
       
       - name: Make gradlew executable
         script: |
-          # यह कमांड 'ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready' के अंदर चलेगा।
-          # सुनिश्चित करें कि 'gradlew' फाइल यहीं पर है।
           chmod +x ./gradlew
       
       - name: Build Android APK
@@ -35,7 +31,6 @@ workflows:
           ./gradlew assembleRelease --no-daemon
           
     artifacts:
-      # यह artifacts का पाथ है, जो 'working_directory' के सापेक्ष (relative) है।
       - app/build/outputs/**/*.apk
       
     publishing:
