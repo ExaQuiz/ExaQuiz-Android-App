@@ -1,6 +1,6 @@
 workflows:
   react-native-android:
-    name: React Native Android Build
+    name: Manual Clone + Android Build
     max_build_duration: 60
     environment:
       java: 17
@@ -8,23 +8,33 @@ workflows:
       android_signing:
         - Roshan Gani
 
-    working_directory: ExaQuiz_Android_Codemagic_Ready
-
     scripts:
+      - name: Manually clone the repo
+        script: |
+          rm -rf ExaQuiz_Android_Codemagic_Ready
+          git clone https://github.com/ExaQuiz/ExaQuiz-Android-App.git
+          cd ExaQuiz-Android-App
+          mv ExaQuiz_Android_Codemagic_Ready ../
+          cd ..
+          rm -rf ExaQuiz-Android-App
+
       - name: Install Node dependencies
         script: |
+          cd ExaQuiz_Android_Codemagic_Ready
           npm install --legacy-peer-deps
 
       - name: Make gradlew executable
         script: |
+          cd ExaQuiz_Android_Codemagic_Ready
           chmod +x ./gradlew
 
       - name: Build Android APK
         script: |
+          cd ExaQuiz_Android_Codemagic_Ready
           ./gradlew assembleRelease --no-daemon
 
     artifacts:
-      - app/build/outputs/**/*.apk
+      - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
 
     publishing:
       email:
