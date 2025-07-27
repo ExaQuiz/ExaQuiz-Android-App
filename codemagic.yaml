@@ -18,10 +18,7 @@ workflows:
     working_directory: ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready
     
     scripts:
-      # यह npm के कैश को साफ करेगा, जो कभी-कभी इंस्टॉलेशन समस्याओं को हल करता है।
-      - name: Clean npm cache
-        script: |
-          npm cache clean --force
+      # 'Clean npm cache' स्टेप को हटा दिया गया है
           
       - name: Install Node dependencies
         script: |
