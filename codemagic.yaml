@@ -1,31 +1,17 @@
-workflows:
-  react-native-android:
-    name: React Native Android Build
-    max_build_duration: 60
-    environment:
-      java: 17
-      node: 16.20.0
-      groups:
-        - github_access
-      android_signing:
-        - Roshan Gani
-    working_directory: ExaQuiz_Android_Codemagic_Ready
-    scripts:
-      - name: Install Node dependencies
-        script: |
-          npm install --legacy-peer-deps
-      - name: Make gradlew executable
-        script: |
-          chmod +x ./gradlew
-      - name: Build Android APK
-        script: |
-          ./gradlew assembleRelease --no-daemon
-    artifacts:
-      - app/build/outputs/**/*.apk
-    publishing:
-      email:
-        recipients:
-          - your_email@example.com
-        notify:
-          success: true
-          failure: true
+# ... बाकी YAML ...
+environment:
+  # ... बाकी environment variables ...
+  groups:
+    - my_github_token_group # यहाँ आपके नए ग्रुप का नाम
+  # ...
+scripts:
+  - name: Remove existing source code
+    script: |
+      rm -rf ./*
+  - name: Clone repository using PAT
+    script: |
+      git clone https://oauth2:${GIT_ACCESS_TOKEN}@github.com/ExaQuiz/ExaQuiz-Android-App.git .
+  - name: Install Node dependencies
+    script: |
+      npm install --legacy-peer-deps
+  # ... बाकी स्क्रिप्ट्स ...
