@@ -9,34 +9,43 @@ workflows:
       # सुनिश्चित करें कि तुमने Codemagic UI में यह ग्रुप बनाया है और उसमें 'GIT_ACCESS_TOKEN'
       # नाम का एक Variable है जिसमें तुम्हारा PAT है।
       groups:
-        - my_github_pat 
+        - my_github_pat # Codemagic UI में बनाया गया तुम्हारा Environment Variable Group का नाम
       android_signing:
-        - Roshan Gani
+        - Roshan Gani # तुम्हारी Android Signing Key का नाम
     
-    # यह वह डायरेक्टरी है जहाँ तुम्हारा प्रोजेक्ट Codemagic पर रहेगा।
-    # सुनिश्चित करें कि तुम्हारे GitHub रेपो के अंदर भी 'ExaQuiz_Android_Codemagic_Ready' नाम का फोल्डर है।
-    working_directory: ExaQuiz_Android_Codemagic_Ready 
+    # यह वह डायरेक्टरी है जहाँ Codemagic तुम्हारे प्रोजेक्ट के अंदर काम करेगा।
+    # 'ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready' यह तुम्हारे GitHub रेपो के अंदर का सही पाथ है।
+    working_directory: ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready
     
     scripts:
-      # यह स्टेप ज़रूरी है ताकि Codemagic के पास अगर कोई पुराना या इनकंप्लीट क्लोन हो, तो वह हट जाए।
-      - name: Clear existing source code
+      # यह सुनिश्चित करता है कि Codemagic का ऑटो-क्लोन (जो शायद काम नहीं कर रहा) हट जाए।
+      # इससे हम अपनी मैन्युअल क्लोनिंग कर पाएंगे।
+      - name: Clean Codemagic default clone location
         script: |
-          rm -rf ./*
+          # Codemagic default रूप से रेपो को working directory के पेरेंट में क्लोन करता है।
+          # हम उसे हटा देंगे।
+          rm -rf "$(pwd)/../../ExaQuiz-Android-App" || true
           
-      # यह सबसे महत्वपूर्ण स्टेप है। यहाँ हम मैन्युअल रूप से GitHub रेपो को क्लोन कर रहे हैं।
-      # 'oauth2:${GIT_ACCESS_TOKEN}' तुम्हारे PAT का उपयोग ऑथेंटिकेशन के लिए करेगा।
-      # 'ExaQuiz/ExaQuiz-Android-App.git' तुम्हारे रेपो का सही नाम और ओनर है।
-      # '.' का मतलब है कि रेपो को 'working_directory' के अंदर ही क्लोन किया जाए।
+      # अब रेपो को सही जगह (यानि working_directory के पेरेंट में) क्लोन करते हैं।
+      # 'oauth2:${GIT_ACCESS_TOKEN}' तुम्हारे PAT का उपयोग करता है।
+      # 'ExaQuiz/ExaQuiz-Android-App.git' तुम्हारे GitHub रेपो का सही नाम है।
       - name: Clone repository using PAT
         script: |
-          git clone https://oauth2:${GIT_ACCESS_TOKEN}@github.com/ExaQuiz/ExaQuiz-Android-App.git .
-      
+          cd "$(pwd)/../.." # working_directory से दो लेवल ऊपर जाएं (बेस क्लोनिंग लोकेशन)
+          git clone https://oauth2:${GIT_ACCESS_TOKEN}@github.com/ExaQuiz/ExaQuiz-Android-App.git
+          
+      # Clone होने के बाद, हम वापस अपनी सही working_directory में आ जाते हैं।
+      - name: Navigate back to project directory
+        script: |
+          cd "$(pwd)/ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready"
+          
       - name: Install Node dependencies
         script: |
           npm install --legacy-peer-deps
       
       - name: Make gradlew executable
         script: |
+          # अब 'gradlew' सही जगह पर होगा क्योंकि हम सही वर्किंग डायरेक्टरी में हैं।
           chmod +x ./gradlew
       
       - name: Build Android APK
