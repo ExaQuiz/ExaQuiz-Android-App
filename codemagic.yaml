@@ -21,6 +21,7 @@ workflows:
           ./gradlew assembleRelease --no-daemon
     artifacts:
       - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
+      - build/**/outputs/**/*.apk
     publishing:
       email:
         recipients:
