@@ -3,25 +3,28 @@ workflows:
     name: React Native Android Build
     max_build_duration: 60
     environment:
-      vars:
-        JAVA_VERSION: 17
-      groups:
-        - github_access
+      java: 17
+      node: 16.20.0
       android_signing:
         - Roshan Gani
+    working_directory: ExaQuiz_Android_Codemagic_Ready
+
     scripts:
-      - name: Install Node & Dependencies
+      - name: Install dependencies
         script: |
-          npm install
+          npm install --legacy-peer-deps
+
       - name: Make gradlew executable
         script: |
-          chmod +x ./ExaQuiz_Android_Codemagic_Ready/gradlew
+          chmod +x ./gradlew
+
       - name: Build Android APK
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease --no-daemon
+
     artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
+      - app/build/outputs/**/*.apk
+
     publishing:
       email:
         recipients:
