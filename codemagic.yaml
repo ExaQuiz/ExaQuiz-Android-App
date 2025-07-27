@@ -1,17 +1,55 @@
-# ... बाकी YAML ...
-environment:
-  # ... बाकी environment variables ...
-  groups:
-    - my_github_token_group # यहाँ आपके नए ग्रुप का नाम
-  # ...
-scripts:
-  - name: Remove existing source code
-    script: |
-      rm -rf ./*
-  - name: Clone repository using PAT
-    script: |
-      git clone https://oauth2:${GIT_ACCESS_TOKEN}@github.com/ExaQuiz/ExaQuiz-Android-App.git .
-  - name: Install Node dependencies
-    script: |
-      npm install --legacy-peer-deps
-  # ... बाकी स्क्रिप्ट्स ...
+workflows:
+  react-native-android:
+    name: React Native Android Build
+    max_build_duration: 60
+    environment:
+      java: 17
+      node: 16.20.0
+      # यह 'my_github_pat' ग्रुप वह है जहाँ तुम्हारा GitHub Personal Access Token (PAT) होगा।
+      # सुनिश्चित करें कि तुमने Codemagic UI में यह ग्रुप बनाया है और उसमें 'GIT_ACCESS_TOKEN'
+      # नाम का एक Variable है जिसमें तुम्हारा PAT है।
+      groups:
+        - my_github_pat 
+      android_signing:
+        - Roshan Gani
+    
+    # यह वह डायरेक्टरी है जहाँ तुम्हारा प्रोजेक्ट Codemagic पर रहेगा।
+    # सुनिश्चित करें कि तुम्हारे GitHub रेपो के अंदर भी 'ExaQuiz_Android_Codemagic_Ready' नाम का फोल्डर है।
+    working_directory: ExaQuiz_Android_Codemagic_Ready 
+    
+    scripts:
+      # यह स्टेप ज़रूरी है ताकि Codemagic के पास अगर कोई पुराना या इनकंप्लीट क्लोन हो, तो वह हट जाए।
+      - name: Clear existing source code
+        script: |
+          rm -rf ./*
+          
+      # यह सबसे महत्वपूर्ण स्टेप है। यहाँ हम मैन्युअल रूप से GitHub रेपो को क्लोन कर रहे हैं।
+      # 'oauth2:${GIT_ACCESS_TOKEN}' तुम्हारे PAT का उपयोग ऑथेंटिकेशन के लिए करेगा।
+      # 'ExaQuiz/ExaQuiz-Android-App.git' तुम्हारे रेपो का सही नाम और ओनर है।
+      # '.' का मतलब है कि रेपो को 'working_directory' के अंदर ही क्लोन किया जाए।
+      - name: Clone repository using PAT
+        script: |
+          git clone https://oauth2:${GIT_ACCESS_TOKEN}@github.com/ExaQuiz/ExaQuiz-Android-App.git .
+      
+      - name: Install Node dependencies
+        script: |
+          npm install --legacy-peer-deps
+      
+      - name: Make gradlew executable
+        script: |
+          chmod +x ./gradlew
+      
+      - name: Build Android APK
+        script: |
+          ./gradlew assembleRelease --no-daemon
+          
+    artifacts:
+      - app/build/outputs/**/*.apk
+      
+    publishing:
+      email:
+        recipients:
+          - your_email@example.com # यहाँ अपनी ईमेल ID डालें
+        notify:
+          success: true
+          failure: true
