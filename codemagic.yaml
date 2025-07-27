@@ -5,6 +5,7 @@ workflows:
     environment:
       java: 17
       node: 16.20.0
+
     scripts:
       - name: Install Node dependencies
         script: |
