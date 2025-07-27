@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-cd ExaQuiz_Android_Codemagic_Ready
 chmod +x gradlew
 ./gradlew assembleRelease --no-daemon
