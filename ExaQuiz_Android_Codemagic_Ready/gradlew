@@ -1,4 +1,3 @@
-#!/usr/bin/env sh
-
-# Minimal gradlew starter
-exec "$JAVA_HOME/bin/java" -cp "$(dirname "$0")/gradle/wrapper/gradle-wrapper.jar" org.gradle.wrapper.GradleWrapperMain "$@"
+git add gradlew gradlew.bat gradle/wrapper
+git commit -m "Add gradle wrapper"
+git push
