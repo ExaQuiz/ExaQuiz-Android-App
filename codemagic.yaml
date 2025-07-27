@@ -7,17 +7,17 @@ workflows:
       node: 16.20.0
       android_signing:
         - Roshan Gani
-      
+
     working_directory: ExaQuiz_Android_Codemagic_Ready
 
     scripts:
-      - name: Install Node modules
+      - name: Install Node dependencies
         script: |
           npm install --legacy-peer-deps
 
       - name: Make gradlew executable
         script: |
-          chmod +x gradlew
+          chmod +x ./gradlew
 
       - name: Build Android APK
         script: |
