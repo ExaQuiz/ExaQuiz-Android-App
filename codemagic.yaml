@@ -8,6 +8,7 @@ workflows:
       android_signing:
         - Roshan Gani
     working_directory: ExaQuiz_Android_Codemagic_Ready
+
     scripts:
       - name: Install dependencies
         script: |
@@ -18,8 +19,10 @@ workflows:
       - name: Build Android APK
         script: |
           ./gradlew assembleRelease --no-daemon
+
     artifacts:
       - app/build/outputs/**/*.apk
+
     publishing:
       email:
         recipients:
