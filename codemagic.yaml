@@ -1,17 +1,16 @@
 workflows:
-  android-build:
-    name: Build Android APK
+  react-native-android:
+    name: React Native Android Build
     environment:
       groups:
         - github_access
-      vars:
-        CM_BUILD_DIR: "ExaQuiz_Android_Codemagic_Ready"
     scripts:
-      - echo "Making gradlew executable..."
-      - chmod +x $CM_BUILD_DIR/gradlew
-      - echo "Changing directory to project..."
-      - cd $CM_BUILD_DIR
-      - echo "Starting APK build..."
-      - ./gradlew assembleRelease
+      - name: Make gradlew executable
+        script: |
+          chmod +x ./ExaQuiz_Android_Codemagic_Ready/gradlew
+      - name: Build APK
+        script: |
+          cd ExaQuiz_Android_Codemagic_Ready
+          ./gradlew assembleRelease
     artifacts:
       - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
