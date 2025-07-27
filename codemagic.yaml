@@ -10,19 +10,19 @@ workflows:
       groups:
         - my_github_pat 
       android_signing:
-        - Roshan Gani # तुम्हारी Android Signing Key का नाम
+        - Roshan Gani 
     
     # यह वह डायरेक्टरी है जहाँ Codemagic तुम्हारे प्रोजेक्ट के अंदर काम करेगा।
-    # यह सीधे तुम्हारे GitHub रेपो के अंदर वाले 'ExaQuiz_Android_Codemagic_Ready' फोल्डर को पॉइंट कर रहा है।
+    # 'ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready' यह तुम्हारे GitHub रेपो के अंदर का सही पाथ है।
     # Codemagic को यह एक्सपेक्ट करना चाहिए कि क्लोन किया गया रेपो इसी फोल्डर स्ट्रक्चर में आएगा।
     working_directory: ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready
     
     scripts:
-      # हम 'rm -rf' वाले स्टेप्स हटा रहे हैं क्योंकि Codemagic का बिल्ड एनवायरनमेंट हर बार फ्रेश होता है।
-      # Git clone की लाइन भी हटा रहे हैं क्योंकि Codemagic को उसे खुद ही करना चाहिए
-      # अगर GitHub App integration काम नहीं कर रहा है, और PAT मौजूद है, तो Codemagic
-      # अपने आप इसे इस्तेमाल करके क्लोन करने की कोशिश करेगा।
-      
+      # यह npm के कैश को साफ करेगा, जो कभी-कभी इंस्टॉलेशन समस्याओं को हल करता है।
+      - name: Clean npm cache
+        script: |
+          npm cache clean --force
+          
       - name: Install Node dependencies
         script: |
           npm install --legacy-peer-deps
@@ -44,7 +44,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - your_email@example.com # यहाँ अपनी ईमेल ID डालें
+          - your_email@example.com 
         notify:
           success: true
           failure: true
