@@ -6,7 +6,7 @@ workflows:
       java: 17
       node: 16.20.0
       groups:
-        - my_github_pat
+        - my_github_pat  # Group in Codemagic with GIT_ACCESS_TOKEN (ghp_...)
       android_signing:
         - Roshan Gani
     working_directory: ExaQuiz_Android_Codemagic_Ready
