@@ -10,7 +10,12 @@ workflows:
     scripts:
       - name: Make gradlew executable
         script: |
-          chmod +x ExaQuiz_Android_Codemagic_Ready/gradlew
+          if [ -d "ExaQuiz_Android_Codemagic_Ready" ]; then
+            chmod +x ExaQuiz_Android_Codemagic_Ready/gradlew
+          else
+            echo "❌ Folder 'ExaQuiz_Android_Codemagic_Ready' not found"
+            exit 1
+          fi
       - name: Install dependencies
         script: |
           cd ExaQuiz_Android_Codemagic_Ready
