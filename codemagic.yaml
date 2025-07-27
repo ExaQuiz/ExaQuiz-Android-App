@@ -7,8 +7,11 @@ workflows:
       vars:
         CM_BUILD_DIR: "ExaQuiz_Android_Codemagic_Ready"
     scripts:
+      - echo "Making gradlew executable..."
       - chmod +x $CM_BUILD_DIR/gradlew
+      - echo "Changing directory to project..."
       - cd $CM_BUILD_DIR
+      - echo "Starting APK build..."
       - ./gradlew assembleRelease
     artifacts:
       - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
