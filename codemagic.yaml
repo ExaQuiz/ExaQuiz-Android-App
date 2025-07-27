@@ -5,9 +5,11 @@ workflows:
     environment:
       java: 17
       node: 16.20.0
+      android_signing:
+        - Roshan Gani
 
     scripts:
-      - name: Install Node dependencies
+      - name: Install dependencies
         script: |
           npm install --legacy-peer-deps
 
