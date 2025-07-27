@@ -5,38 +5,27 @@ workflows:
     environment:
       java: 17
       node: 16.20.0
-      # सुनिश्चित करें कि तुमने Codemagic UI में 'my_github_pat' नाम का Environment Variable Group
-      # बनाया है और उसमें 'GIT_ACCESS_TOKEN' नाम का वेरिएबल है जिसमें तुम्हारा GitHub PAT है।
       groups:
-        - my_github_pat 
+        - my_github_pat
       android_signing:
-        - Roshan Gani 
-    
-    # यह वह डायरेक्टरी है जहाँ Codemagic तुम्हारे प्रोजेक्ट के अंदर काम करेगा।
-    # 'ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready' यह तुम्हारे GitHub रेपो के अंदर का सही पाथ है।
-    # Codemagic को यह एक्सपेक्ट करना चाहिए कि क्लोन किया गया रेपो इसी फोल्डर स्ट्रक्चर में आएगा।
-    working_directory: ExaQuiz-Android-App/ExaQuiz_Android_Codemagic_Ready
-    
+        - Roshan Gani
+    working_directory: ExaQuiz_Android_Codemagic_Ready
     scripts:
       - name: Install Node dependencies
         script: |
-          npm install --legacy-peer-deps --loglevel verbose # यहाँ बदलाव किया गया है
-      
+          npm install --legacy-peer-deps --loglevel verbose
       - name: Make gradlew executable
         script: |
           chmod +x ./gradlew
-      
       - name: Build Android APK
         script: |
           ./gradlew assembleRelease --no-daemon
-          
     artifacts:
       - app/build/outputs/**/*.apk
-      
     publishing:
       email:
         recipients:
-          - your_email@example.com 
+          - your_email@example.com
         notify:
           success: true
           failure: true
