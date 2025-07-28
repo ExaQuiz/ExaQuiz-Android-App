@@ -1,28 +1,12 @@
-workflows:
-  react-native-android:
-    name: React Native Android APK Build
-    max_build_duration: 60
-    environment:
-      java: 17
-      node: 16.20.0
-      android_signing:
-        - Roshan Gani
-    scripts:
-      - name: Setup Gradle Wrapper & Dependencies
-        script: |
-          cd ExaQuiz_Android_Codemagic_Ready
-          chmod +x gradlew
-          npm install --legacy-peer-deps
-      - name: Build APK
-        script: |
-          cd ExaQuiz_Android_Codemagic_Ready
-          ./gradlew assembleRelease --no-daemon
-    artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
-    publishing:
-      email:
-        recipients:
-          - your_email@example.com
-        notify:
-          success: true
-          failure: true
+scripts:
+  - name: Make gradlew executable
+    script: |
+      chmod +x ExaQuiz_Android_Codemagic_Ready/gradlew
+  - name: Install dependencies
+    script: |
+      cd ExaQuiz_Android_Codemagic_Ready
+      npm install --legacy-peer-deps
+  - name: Build APK
+    script: |
+      cd ExaQuiz_Android_Codemagic_Ready
+      ./gradlew assembleRelease --no-daemon
