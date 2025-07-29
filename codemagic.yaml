@@ -1,6 +1,6 @@
 workflows:
-  build_exaquiz_app:
-    name: React Native Android APK Build (Public Repo - No Git Push)
+  react-native-android:
+    name: React Native Android APK Build (Root Level - No Git Push)
     max_build_duration: 60
     environment:
       java: 17
@@ -10,22 +10,15 @@ workflows:
     scripts:
       - name: Make gradlew executable
         script: |
-          if [ -d "ExaQuiz_Android_Codemagic_Ready" ]; then
-            chmod +x ExaQuiz_Android_Codemagic_Ready/gradlew
-          else
-            echo "❌ Folder 'ExaQuiz_Android_Codemagic_Ready' not found"
-            exit 1
-          fi
+          chmod +x gradlew
       - name: Install dependencies
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready
           npm install --legacy-peer-deps
       - name: Build APK
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready
           ./gradlew assembleRelease --no-daemon
     artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
+      - app/build/outputs/**/*.apk
     publishing:
       email:
         recipients:
