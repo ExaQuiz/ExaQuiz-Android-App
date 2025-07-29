@@ -1,6 +1,6 @@
 workflows:
   react-native-android:
-    name: Build APK
+    name: React Native Android APK Build (Public Repo - No Git Push)
     max_build_duration: 60
     environment:
       java: 17
@@ -10,15 +10,21 @@ workflows:
     scripts:
       - name: Make gradlew executable
         script: |
-          chmod +x ExaQuiz_Android_Codemagic_Ready/gradlew
+          chmod +x android/gradlew
       - name: Install dependencies
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready
-          npm install --legacy-peer-deps
+          cd android
+          npm install --legacy-peer-deps || echo "Skipping npm install (if not React Native)"
       - name: Build APK
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready
-          ./gradlew wrapper       # ensure wrapper created
+          cd android
           ./gradlew assembleRelease --no-daemon
     artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
+      - android/app/build/outputs/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - your_email@example.com
+        notify:
+          success: true
+          failure: true
