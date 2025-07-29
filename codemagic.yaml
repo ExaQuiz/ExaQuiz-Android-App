@@ -10,21 +10,14 @@ workflows:
     scripts:
       - name: Make gradlew executable
         script: |
-          chmod +x android/gradlew
+          chmod +x ExaQuiz_Android_Codemagic_Ready/gradlew
       - name: Install dependencies
         script: |
-          cd android
-          npm install --legacy-peer-deps || echo "Skipping npm install (if not React Native)"
+          cd ExaQuiz_Android_Codemagic_Ready
+          npm install --legacy-peer-deps
       - name: Build APK
         script: |
-          cd android
+          cd ExaQuiz_Android_Codemagic_Ready
           ./gradlew assembleRelease --no-daemon
     artifacts:
-      - android/app/build/outputs/**/*.apk
-    publishing:
-      email:
-        recipients:
-          - your_email@example.com
-        notify:
-          success: true
-          failure: true
+      - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
