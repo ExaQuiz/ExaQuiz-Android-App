@@ -1,7 +1,0 @@
-defaultConfig {
-    applicationId "com.exaquiz.app"
-    minSdkVersion 21
-    targetSdkVersion 34
-    versionCode 1
-    versionName "v1.0.0.1"
-}
