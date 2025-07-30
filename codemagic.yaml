@@ -10,15 +10,23 @@ workflows:
     scripts:
       - name: Make gradlew executable
         script: |
-          chmod +x ./gradlew
+          if [ -f "android/gradlew" ]; then
+            chmod +x android/gradlew
+          else
+            echo "❌ gradlew file not found in android/"
+            exit 1
+          fi
       - name: Install dependencies
         script: |
+          cd android
           npm install --legacy-peer-deps
       - name: Build APK
         script: |
+          cd android
           ./gradlew assembleRelease --no-daemon
     artifacts:
-      - app/build/outputs/**/*.apk
+      - android/app/build/outputs/**/*.apk
+      - build/**/outputs/**/*.apk
     publishing:
       email:
         recipients:
