@@ -8,28 +8,17 @@ workflows:
       android_signing:
         - Roshan Gani
     scripts:
-      - name: Ensure gradle wrapper is in correct path
-        script: |
-          mkdir -p ExaQuiz_Android_Codemagic_Ready/gradle/wrapper
-          if [ -f ExaQuiz_Android_Codemagic_Ready/gradle-wrapper.jar ]; then
-            mv -f ExaQuiz_Android_Codemagic_Ready/gradle-wrapper.jar ExaQuiz_Android_Codemagic_Ready/gradle/wrapper/gradle-wrapper.jar
-          fi
-          if [ -f ExaQuiz_Android_Codemagic_Ready/gradle-wrapper.properties ]; then
-            mv -f ExaQuiz_Android_Codemagic_Ready/gradle-wrapper.properties ExaQuiz_Android_Codemagic_Ready/gradle/wrapper/gradle-wrapper.properties
-          fi
       - name: Make gradlew executable
         script: |
-          chmod +x ExaQuiz_Android_Codemagic_Ready/gradlew
+          chmod +x ./gradlew
       - name: Install dependencies
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready
           npm install --legacy-peer-deps
       - name: Build APK
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready
           ./gradlew assembleRelease --no-daemon
     artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
+      - app/build/outputs/**/*.apk
     publishing:
       email:
         recipients:
