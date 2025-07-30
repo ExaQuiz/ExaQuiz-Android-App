@@ -1,3 +1,0 @@
-git add android/gradle/wrapper/
-git commit -m "Fix gradle wrapper path"
-git push
