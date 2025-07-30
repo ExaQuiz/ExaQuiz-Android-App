@@ -1,6 +1,6 @@
 workflows:
   react-native-android:
-    name: React Native Android APK Build (Public Repo - No Git Push)
+    name: React Native Android APK Build (Flat Repo)
     max_build_duration: 60
     environment:
       java: 17
@@ -10,23 +10,15 @@ workflows:
     scripts:
       - name: Make gradlew executable
         script: |
-          if [ -f "android/gradlew" ]; then
-            chmod +x android/gradlew
-          else
-            echo "❌ gradlew file not found in android/"
-            exit 1
-          fi
+          chmod +x ./gradlew
       - name: Install dependencies
         script: |
-          cd android
           npm install --legacy-peer-deps
       - name: Build APK
         script: |
-          cd android
           ./gradlew assembleRelease --no-daemon
     artifacts:
       - android/app/build/outputs/**/*.apk
-      - build/**/outputs/**/*.apk
     publishing:
       email:
         recipients:
