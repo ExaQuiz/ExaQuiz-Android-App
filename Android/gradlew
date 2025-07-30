@@ -1,39 +1,37 @@
-workflows:
-  react-native-android:
-    name: React Native Android APK Build (Public Repo - No Git Push)
-    max_build_duration: 60
-    environment:
-      java: 17
-      node: 16.20.0
-      android_signing:
-        - Roshan Gani
-    scripts:
-      - name: Ensure gradle wrapper is in correct path
-        script: |
-          mkdir -p ExaQuiz_Android_Codemagic_Ready/gradle/wrapper
-          if [ -f ExaQuiz_Android_Codemagic_Ready/gradle-wrapper.jar ]; then
-            mv -f ExaQuiz_Android_Codemagic_Ready/gradle-wrapper.jar ExaQuiz_Android_Codemagic_Ready/gradle/wrapper/gradle-wrapper.jar
-          fi
-          if [ -f ExaQuiz_Android_Codemagic_Ready/gradle-wrapper.properties ]; then
-            mv -f ExaQuiz_Android_Codemagic_Ready/gradle-wrapper.properties ExaQuiz_Android_Codemagic_Ready/gradle/wrapper/gradle-wrapper.properties
-          fi
-      - name: Make gradlew executable
-        script: |
-          chmod +x ExaQuiz_Android_Codemagic_Ready/gradlew
-      - name: Install dependencies
-        script: |
-          cd ExaQuiz_Android_Codemagic_Ready
-          npm install --legacy-peer-deps
-      - name: Build APK
-        script: |
-          cd ExaQuiz_Android_Codemagic_Ready
-          ./gradlew assembleRelease --no-daemon
-    artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/app/build/outputs/**/*.apk
-    publishing:
-      email:
-        recipients:
-          - your_email@example.com
-        notify:
-          success: true
-          failure: true
+#!/usr/bin/env sh
+
+##############################################################################
+##
+##  Gradle start up script for UN*X
+##
+##############################################################################
+
+# Attempt to set APP_HOME
+PRG="$0"
+
+# Resolve symlinks
+while [ -h "$PRG" ]; do
+  ls=$(ls -ld "$PRG")
+  link=$(expr "$ls" : '.*-> \(.*\)$')
+  if expr "$link" : '/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=$(dirname "$PRG")/"$link"
+  fi
+done
+
+SAVED=$(pwd)
+cd "$(dirname "$PRG")/" >/dev/null
+APP_HOME=$(pwd -P)
+cd "$SAVED" >/dev/null
+
+DEFAULT_JVM_OPTS=""
+
+# Make sure JAVA_HOME is set
+if [ -z "$JAVA_HOME" ]; then
+  echo "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH." 1>&2
+  exit 1
+fi
+
+# Launch Gradle
+exec "$JAVA_HOME/bin/java" $DEFAULT_JVM_OPTS -cp "$APP_HOME/gradle/wrapper/gradle-wrapper.jar" org.gradle.wrapper.GradleWrapperMain "$@"
