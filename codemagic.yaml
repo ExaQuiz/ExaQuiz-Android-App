@@ -1,29 +1,28 @@
 workflows:
   react-native-android:
-    name: React Native Android Build
+    name: React Native Android APK Build
     max_build_duration: 60
     environment:
+      vars:
+        PACKAGE_NAME: "com.exaquizapp"   # ← apna package name yaha daalo
+      node: 18.16.0
       java: 17
-      node: 16.20.0
-      groups:
-        - my_github_pat
-      android_signing:
-        - Roshan Gani
-
-    working_directory: ExaQuiz_Android_Codemagic_Ready/android
-
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: "*"
+          include: true
     scripts:
-      - name: Install Node dependencies
+      - name: Install npm dependencies
         script: |
-          #!/usr/bin/env bash
-          npm install --legacy-peer-deps --loglevel verbose
-
-      - name: Make gradlew executable
+          npm install
+      - name: Set up Android SDK
         script: |
-          #!/usr/bin/env bash
-          chmod +x ./gradlew
-
-      - name: Build Android APK
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Build Android release APK
         script: |
-          #!/usr/bin/env bash
-          ./gradlew assembleRelease --no-daemon
+          cd android
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/**/*.apk
