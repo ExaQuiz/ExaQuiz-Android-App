@@ -1,34 +1,32 @@
 workflows:
-  react-native-android:
-    name: React Native Android APK Build (Flat Repo)
+  android-app-build:
+    name: Android APK Build with Auto Jar Download
     max_build_duration: 60
     environment:
-      java: 17
-      node: 16.20.0
-      android_signing:
-        - Roshan Gani
-
+      vars:
+        JAVA_VERSION: 17
+      java: "$JAVA_VERSION"
     scripts:
       - name: Make gradlew executable
         script: |
           chmod +x ./gradlew
-          ls -la  # ✅ Debug: confirms gradlew is there and executable
 
-      - name: Install dependencies
+      - name: Auto download gradle-wrapper.jar if missing
         script: |
-          npm install --legacy-peer-deps
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "gradle-wrapper.jar not found. Downloading gradle zip..."
+            curl -O https://services.gradle.org/distributions/gradle-8.4-bin.zip
+            unzip -q gradle-8.4-bin.zip
+            cp gradle-8.4/lib/gradle-wrapper.jar gradle/wrapper/
+            echo "gradle-wrapper.jar downloaded and placed."
+          else
+            echo "gradle-wrapper.jar already exists."
+          fi
 
       - name: Build APK
         script: |
+          ./gradlew clean
           ./gradlew assembleRelease --no-daemon
 
     artifacts:
-      - android/app/build/outputs/**/*.apk
-
-    publishing:
-      email:
-        recipients:
-          - your_email@example.com
-        notify:
-          success: true
-          failure: true
+      - build/app/outputs/**/*.apk
