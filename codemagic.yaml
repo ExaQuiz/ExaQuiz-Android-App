@@ -30,7 +30,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@example.com   # Replace with your real email
+          - your-email@example.com   # 👈 Replace this
         notify:
           success: true
-          failure: true          failure: true
+          failure: true
