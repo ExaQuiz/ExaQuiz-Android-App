@@ -1,32 +1,38 @@
 workflows:
-  android-app-build:
-    name: Android APK Build with Auto Jar Download
+  react-native-android:
+    name: React Native Android Build with Auto Jar Fix
     max_build_duration: 60
     environment:
       vars:
-        JAVA_VERSION: 17
-      java: "$JAVA_VERSION"
+        PACKAGE_NAME: "com.yourapp" # <-- Change this to your real app package
+      node: 18
+      java: 17
+      android: latest
     scripts:
+      - name: Install Dependencies
+        script: |
+          npm install
+
       - name: Make gradlew executable
         script: |
-          chmod +x ./gradlew
+          chmod +x android/gradlew
 
-      - name: Auto download gradle-wrapper.jar if missing
+      - name: Download gradle-wrapper.jar if missing
         script: |
-          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            echo "gradle-wrapper.jar not found. Downloading gradle zip..."
+          if [ ! -f android/gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "Downloading gradle-wrapper.jar..."
             curl -O https://services.gradle.org/distributions/gradle-8.4-bin.zip
             unzip -q gradle-8.4-bin.zip
-            cp gradle-8.4/lib/gradle-wrapper.jar gradle/wrapper/
+            cp gradle-8.4/lib/gradle-wrapper.jar android/gradle/wrapper/
             echo "gradle-wrapper.jar downloaded and placed."
           else
             echo "gradle-wrapper.jar already exists."
           fi
 
-      - name: Build APK
+      - name: Build Android APK
         script: |
-          ./gradlew clean
+          cd android
           ./gradlew assembleRelease --no-daemon
 
     artifacts:
-      - build/app/outputs/**/*.apk
+      - android/app/build/outputs/**/*.apk
