@@ -6,21 +6,21 @@ workflows:
       java: 17
       node: 16.20.0
       groups:
-        - my_github_pat 
+        - my_github_pat
       android_signing:
-        - Roshan Gani 
-    
-    working_directory: ExaQuiz_Android_Codemagic_Ready
-    
+        - Roshan Gani
+
+    working_directory: ExaQuiz_Android_Codemagic_Ready/android
+
     scripts:
       - name: Install Node dependencies
         script: |
           npm install --legacy-peer-deps --loglevel verbose
-      
+
       - name: Make gradlew executable
         script: |
           chmod +x ./gradlew
-      
+
       - name: Build Android APK
         script: |
           ./gradlew assembleRelease --no-daemon
