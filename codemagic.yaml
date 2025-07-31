@@ -20,11 +20,10 @@ workflows:
 
       - name: Make gradlew executable
         script: |
+          #!/usr/bin/env bash
           chmod +x ./gradlew
 
       - name: Build Android APK
         script: |
+          #!/usr/bin/env bash
           ./gradlew assembleRelease --no-daemon
-
-    artifacts:
-      - build/app/outputs/**/*.apk
