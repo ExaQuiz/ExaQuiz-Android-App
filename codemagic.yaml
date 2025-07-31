@@ -1,12 +1,12 @@
 workflows:
-  react-native-android:
-    name: React Native Android APK Build
+  android-build:
+    name: Android APK Build for React Native
     max_build_duration: 60
     environment:
-      vars:
-        PACKAGE_NAME: "com.exaquizapp"   # ← apna package name yaha daalo
       node: 18.16.0
       java: 17
+      vars:
+        PACKAGE_NAME: "com.exaquiz.app"   # ← yeh tumhara Android package name hai
     triggering:
       events:
         - push
@@ -14,13 +14,13 @@ workflows:
         - pattern: "*"
           include: true
     scripts:
-      - name: Install npm dependencies
+      - name: Install dependencies
         script: |
           npm install
-      - name: Set up Android SDK
+      - name: Set up local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
-      - name: Build Android release APK
+      - name: Build release APK
         script: |
           cd android
           ./gradlew assembleRelease
