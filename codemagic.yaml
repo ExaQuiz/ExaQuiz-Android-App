@@ -1,20 +1,24 @@
 workflows:
-  react-native-android:
-    name: React Native Android APK Build
-    max_build_duration: 60
+  release-build:
+    name: Build Release APK
+    instance_type: linux_x2
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'main'
+          include: true
     environment:
-      flutter: stable
-      node: 16.14.2
+      vars:
+        GRADLE_TASK: "assembleRelease"
     scripts:
-      - name: Install dependencies
-        script: |
-          npm install
-      - name: Set Gradle wrapper permission
-        script: |
-          chmod +x ExaQuiz_Android_Codemagic_Ready/android/gradlew
-      - name: Build APK
-        script: |
-          cd ExaQuiz_Android_Codemagic_Ready/android
-          ./gradlew assembleRelease
+      - name: Grant execute to gradlew
+        script: chmod +x ./gradlew
+      - name: Run Gradle build
+        script: ./gradlew $GRADLE_TASK
     artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/**/*.apk
+      - android/app/build/outputs/**/*.apk
+    publishing:
+      github_release:
+        # optional: publish to GitHub
+        enabled: false
