@@ -1,25 +1,18 @@
 workflows:
   react-native-android:
-    name: React Native Android APK Build
-    max_build_duration: 60
-    instance_type: linux_x2
+    name: React Native Android Workflow
     environment:
       vars:
         JAVA_VERSION: 17
-      node: 18.16.0
+        NODE_VERSION: 16.20.0
+        FLUTTER_CHANNEL: stable
       java: 17
-      android: sdk
-    triggering:
-      events:
-        - push
+      node: 16.20.0
     scripts:
-      - name: Install dependencies
+      - name: Install npm dependencies
         script: |
           npm install
-      - name: Make gradlew executable
-        script: |
-          chmod +x android/gradlew
-      - name: Build Android release
+      - name: Run Gradle build
         script: |
           cd android
           ./gradlew assembleRelease
