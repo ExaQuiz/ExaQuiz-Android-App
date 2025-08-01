@@ -12,13 +12,9 @@ workflows:
       vars:
         GRADLE_TASK: "assembleRelease"
     scripts:
-      - name: Grant execute to gradlew
+      - name: Grant execute permission to gradlew
         script: chmod +x ./gradlew
       - name: Run Gradle build
         script: ./gradlew $GRADLE_TASK
     artifacts:
       - android/app/build/outputs/**/*.apk
-    publishing:
-      github_release:
-        # optional: publish to GitHub
-        enabled: false
