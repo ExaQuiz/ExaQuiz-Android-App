@@ -11,14 +11,10 @@ workflows:
           npm install
       - name: Set Gradle wrapper permission
         script: |
-          chmod +x android/gradlew
+          chmod +x ExaQuiz_Android_Codemagic_Ready/android/gradlew
       - name: Build APK
         script: |
-          cd android
+          cd ExaQuiz_Android_Codemagic_Ready/android
           ./gradlew assembleRelease
     artifacts:
-      - android/app/build/outputs/**/*.apk
-    publishing:
-      email:
-        recipients:
-          - your-email@example.com
+      - ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/**/*.apk
