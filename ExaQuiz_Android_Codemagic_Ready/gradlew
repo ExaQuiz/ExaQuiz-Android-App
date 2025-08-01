@@ -1,3 +1,0 @@
-git add android/gradlew
-git commit -m "Fix: Added gradlew and made it executable"
-git push origin main
