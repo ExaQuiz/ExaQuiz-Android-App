@@ -1,24 +1,27 @@
 workflows:
   react-native-android:
     name: React Native Android APK Build
-    max_build_duration: 60
-    instance_type: mac_mini
+    max_build_duration: 30
     environment:
+      instance_type: linux  # 👈 Yahi pehle galat tha: mac_mini
       vars:
         PACKAGE_NAME: "com.exaquiz.app"
-      node: 16.13.1
-      java: 11
+      flutter: stable
+      node: 16
     scripts:
       - name: Install dependencies
         script: |
           npm install
       - name: Set Gradle wrapper permission
         script: |
-          cd android
-          chmod +x gradlew
+          chmod +x android/gradlew
       - name: Build release APK
         script: |
           cd android
-          ./gradlew assembleRelease --no-daemon
+          ./gradlew assembleRelease
     artifacts:
       - android/app/build/outputs/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
