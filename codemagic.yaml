@@ -1,18 +1,17 @@
 workflows:
   react-native-android:
-    name: Build React Native Android App
-    instance_type: linux  # ✅ FREE plan compatible
+    name: React Native Android Build
+    instance_type: linux
     environment:
-      vars:
-        JAVA_HOME: /opt/java/openjdk
+      java: 17
     scripts:
       - name: Make gradlew executable
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready/android
+          cd android
           chmod +x ./gradlew
       - name: Build APK
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready/android
+          cd android
           ./gradlew assembleRelease --no-daemon
     artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/**/*.apk
+      - android/app/build/outputs/**/*.apk
