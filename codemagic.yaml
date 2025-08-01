@@ -1,14 +1,18 @@
 workflows:
-  react-native-android:
+  react-native:
     name: React Native Android Build
-    max_build_duration: 60
     environment:
       vars:
-        GRADLE_TASK: assembleRelease
+        PACKAGE_NAME: "com.exaquiz.app"
+      node: 16.20.0
+      java: 17
     scripts:
       - name: Set gradlew as executable
-        script: chmod +x ./android/gradlew
+        script: chmod +x ./ExaQuiz_Android_Codemagic_Ready/android/gradlew
+
       - name: Build APK
-        script: cd android && ./gradlew $GRADLE_TASK
+        script: |
+          cd ExaQuiz_Android_Codemagic_Ready/android
+          ./gradlew assembleRelease
     artifacts:
-      - android/app/build/outputs/**/*.apk
+      - ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/**/*.apk
