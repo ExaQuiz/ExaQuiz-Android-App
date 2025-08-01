@@ -5,13 +5,11 @@ workflows:
     environment:
       vars:
         JAVA_HOME: /opt/java/openjdk
-      android:
-        image: android-33
     triggering:
       events:
         - push
     scripts:
-      - name: Set working directory
+      - name: Build APK
         script: |
           cd ExaQuiz_Android_Codemagic_Ready/android
           chmod +x ./gradlew
