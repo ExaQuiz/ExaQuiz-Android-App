@@ -1,21 +1,14 @@
 workflows:
-  android-workflow:
-    name: Android APK Build
+  react-native-android:
+    name: React Native Android Build
     max_build_duration: 60
     environment:
       vars:
         GRADLE_TASK: assembleRelease
-      java: 17
-      android_signing:
-        - release
     scripts:
       - name: Set gradlew as executable
         script: chmod +x ./android/gradlew
-      - name: Build Release APK
+      - name: Build APK
         script: cd android && ./gradlew $GRADLE_TASK
     artifacts:
       - android/app/build/outputs/**/*.apk
-    publishing:
-      email:
-        recipients:
-          - "your-email@example.com"
