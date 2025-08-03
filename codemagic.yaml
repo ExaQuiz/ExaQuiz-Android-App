@@ -6,9 +6,11 @@ workflows:
     scripts:
       - name: Make gradlew executable
         script: |
+          cd android
           chmod +x ./gradlew
       - name: Build APK
         script: |
+          cd android
           ./gradlew assembleRelease --no-daemon
     artifacts:
-      - app/build/outputs/**/*.apk
+      - android/app/build/outputs/**/*.apk
