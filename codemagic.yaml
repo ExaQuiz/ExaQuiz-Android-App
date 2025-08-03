@@ -1,18 +1,15 @@
 workflows:
   react-native-android:
     name: React Native Android Build
-    # ❌ Remove this line 👇
-    # instance_type: linux
+    instance_type: mac_mini
     environment:
       java: 17
     scripts:
       - name: Make gradlew executable
         script: |
-          cd android
           chmod +x ./gradlew
       - name: Build APK
         script: |
-          cd android
           ./gradlew assembleRelease --no-daemon
     artifacts:
-      - android/app/build/outputs/**/*.apk
+      - app/build/outputs/**/*.apk
