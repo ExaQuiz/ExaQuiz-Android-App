@@ -1,16 +1,19 @@
 workflows:
   react-native-android:
-    name: React Native Android Build
+    name: ExaQuiz Android APK Build
+    instance_type: linux_x2
     environment:
       java: 17
+      vars:
+        PROJECT_DIR: "ExaQuiz_Android_Codemagic_Ready"
     scripts:
       - name: Make gradlew executable
         script: |
-          cd android
+          cd $PROJECT_DIR/android
           chmod +x ./gradlew
       - name: Build APK
         script: |
-          cd android
+          cd $PROJECT_DIR/android
           ./gradlew assembleRelease --no-daemon
     artifacts:
-      - android/app/build/outputs/**/*.apk
+      - ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/**/*.apk
