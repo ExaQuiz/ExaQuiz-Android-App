@@ -1,19 +1,21 @@
 workflows:
-  react-native-android:  # 👈 rename this to match the expected workflow name
-    name: Android APK Build
-    instance_type: linux
+  react-native-android:
+    name: React Native Android Workflow
     environment:
-      java: 17
       vars:
-        PROJECT_DIR: "ExaQuiz_Android_Codemagic_Ready"
+        JAVA_VERSION: 17
+        NODE_VERSION: 16.20.0
+        FLUTTER_CHANNEL: stable
+      java: 17
+      node: 16.20.0
     scripts:
-      - name: Make gradlew executable
+      - name: Install npm dependencies
         script: |
-          cd $PROJECT_DIR/android
-          chmod +x ./gradlew
-      - name: Build APK
+          npm install
+      - name: Run Gradle build
         script: |
-          cd $PROJECT_DIR/android
-          ./gradlew assembleRelease --no-daemon
+          cd android
+          ./gradlew assembleRelease
     artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/**/*.apk
+      - android/app/build/outputs/**/*.apk
+
