@@ -1,7 +1,7 @@
 workflows:
-  react-native-android:
-    name: ExaQuiz Android APK Build
-    instance_type: linux  # ✅ FREE PLAN SUPPORTED
+  android-app:
+    name: ExaQuiz Free Build
+    instance_type: linux  # ✅ Free tier-compatible
     environment:
       java: 17
       vars:
