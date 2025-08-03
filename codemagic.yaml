@@ -1,7 +1,8 @@
 workflows:
   react-native-android:
     name: React Native Android Build
-    instance_type: linux
+    # ❌ Remove this line 👇
+    # instance_type: linux
     environment:
       java: 17
     scripts:
