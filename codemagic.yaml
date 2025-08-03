@@ -14,8 +14,8 @@ workflows:
           npm install
       - name: Run Gradle build
         script: |
-          cd android
+          cd ExaQuiz_Android_Codemagic_Ready/android
+          chmod +x ./gradlew
           ./gradlew assembleRelease
     artifacts:
-      - android/app/build/outputs/**/*.apk
-
+      - ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/**/*.apk
