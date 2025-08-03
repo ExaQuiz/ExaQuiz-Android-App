@@ -19,10 +19,12 @@ workflows:
         script: |
           chmod +x gradlew
 
-      - name: Run Gradle build
+      - name: Run Gradle build and list APKs
         working_directory: ExaQuiz_Android_Codemagic_Ready/android
         script: |
           ./gradlew assembleRelease
+          echo "Searching for APKs..."
+          find . -name "*.apk"
 
     artifacts:
-      - ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/*.apk
+      - **/*.apk
