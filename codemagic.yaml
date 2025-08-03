@@ -1,7 +1,7 @@
 workflows:
-  android-app:
-    name: ExaQuiz Free Build
-    instance_type: linux  # ✅ Free tier-compatible
+  react-native-android:  # 👈 rename this to match the expected workflow name
+    name: Android APK Build
+    instance_type: linux
     environment:
       java: 17
       vars:
