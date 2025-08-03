@@ -7,24 +7,17 @@ workflows:
         NODE_VERSION: 16.20.0
       java: 17
       node: 16.20.0
-
     scripts:
       - name: Install npm dependencies
-        working_directory: ExaQuiz_Android_Codemagic_Ready
         script: |
           npm install
-
       - name: Give gradlew permission
-        working_directory: ExaQuiz_Android_Codemagic_Ready/android
         script: |
+          cd ExaQuiz_Android_Codemagic_Ready/android
           chmod +x gradlew
-
-      - name: Run Gradle build and list APKs
-        working_directory: ExaQuiz_Android_Codemagic_Ready/android
+      - name: Run Gradle build
         script: |
+          cd ExaQuiz_Android_Codemagic_Ready/android
           ./gradlew assembleRelease
-          echo "Searching for APKs..."
-          find . -name "*.apk"
-
     artifacts:
-      - **/*.apk
+      - "ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/*.apk"
