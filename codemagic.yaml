@@ -20,4 +20,4 @@ workflows:
           cd ExaQuiz_Android_Codemagic_Ready/android
           ./gradlew assembleRelease
     artifacts:
-      - "ExaQuiz_Android_Codemagic_Ready/android/app/build/outputs/apk/release/*.apk"
+      - '**/app-release.apk'
