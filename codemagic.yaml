@@ -1,16 +1,16 @@
 workflows:
-  react-native-android:
-    name: React Native Android APK Build
+  build-android:
+    name: Build Android APK (Free Plan)
     max_build_duration: 60
-    instance_type: linux
     environment:
       vars:
         PACKAGE_NAME: "com.exaquiz.app"
       android_signing:
         - Roshan Gani
     scripts:
-      - name: Give gradlew permission
-        script: chmod +x android/gradlew
+      - name: Make gradlew executable
+        script: |
+          chmod +x android/gradlew
       - name: Build APK
         script: |
           cd android
