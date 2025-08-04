@@ -1,1 +1,47 @@
 
+#!/usr/bin/env sh
+
+##############################################################################
+##
+##  Gradle start up script for UN*X
+##
+##############################################################################
+
+# Attempt to set APP_HOME if not already set
+if [ -z "$APP_HOME" ]; then
+  APP_HOME=$(cd "$(dirname "$0")"; pwd)
+fi
+
+# Locate Java
+if [ -n "$JAVA_HOME" ]; then
+  JAVA="$JAVA_HOME/bin/java"
+else
+  JAVA=java
+fi
+
+# Escape spaces in path for use in command
+APP_HOME_ESCAPED=$(printf "%s\n" "$APP_HOME" | sed 's/ /\\ /g')
+
+CLASSPATH=$APP_HOME_ESCAPED/gradle/wrapper/gradle-wrapper.jar
+
+WRAPPER_PROPERTIES=$APP_HOME_ESCAPED/gradle/wrapper/gradle-wrapper.properties
+
+# Read gradle distribution URL from wrapper properties
+DISTRIBUTION_URL=$(grep distributionUrl "$WRAPPER_PROPERTIES" | cut -d'=' -f2)
+
+BASE_DIR="$HOME/.gradle/wrapper/dists"
+GRADLE_VERSION=$(basename "$DISTRIBUTION_URL" | sed -e 's/-bin.zip//' -e 's/gradle-//')
+GRADLE_DIR="$BASE_DIR/gradle-$GRADLE_VERSION"
+
+GRADLE_LIB="$GRADLE_DIR/gradle-$GRADLE_VERSION/lib"
+
+# Download gradle if needed
+if [ ! -f "$GRADLE_DIR/gradle-$GRADLE_VERSION/lib/gradle-launcher-$GRADLE_VERSION.jar" ]; then
+  echo "Downloading Gradle $GRADLE_VERSION..."
+  mkdir -p "$GRADLE_DIR"
+  curl -L -o /tmp/gradle.zip "$DISTRIBUTION_URL"
+  unzip -q /tmp/gradle.zip -d "$BASE_DIR"
+fi
+
+# Execute gradle wrapper
+exec "$JAVA" -cp "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
