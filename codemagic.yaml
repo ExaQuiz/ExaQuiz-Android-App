@@ -7,7 +7,7 @@ workflows:
       vars:
         PACKAGE_NAME: "com.exaquiz.app"
       android_signing:
-        - exaquiz_keystore
+        - Roshan Gani
     scripts:
       - name: Give gradlew permission
         script: chmod +x android/gradlew
