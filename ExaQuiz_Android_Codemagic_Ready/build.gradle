@@ -1,1 +1,11 @@
-// Top-level build.gradle placeholder
+android {
+    ...
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug // ya proper release config
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
