@@ -1,23 +1,19 @@
 workflows:
   react-native-android:
-    name: React Native Android Workflow
+    name: React Native Android APK Build
+    max_build_duration: 60
+    instance_type: mac_mini
     environment:
       vars:
-        JAVA_VERSION: 17
-        NODE_VERSION: 16.20.0
-      java: 17
-      node: 16.20.0
+        PACKAGE_NAME: "com.exaquiz.app"
+      android_signing:
+        - exaquiz_keystore
     scripts:
-      - name: Install npm dependencies
-        script: |
-          npm install
       - name: Give gradlew permission
+        script: chmod +x android/gradlew
+      - name: Build APK
         script: |
-          cd ExaQuiz_Android_Codemagic_Ready/android
-          chmod +x gradlew
-      - name: Run Gradle build
-        script: |
-          cd ExaQuiz_Android_Codemagic_Ready/android
+          cd android
           ./gradlew assembleRelease
     artifacts:
-      - '**/app-release.apk'
+      - android/app/build/outputs/**/*.apk
